@@ -1,18 +1,26 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const csvRouter = require('./routes/csvRouter')
-
-mongoose.connect('mongodb://0.0.0.0/csvuploader', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+const PORT = 4000;
 const app = express();
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
+const db = require('./config/mongoose');
 
-app.use('/', csvRouter);
+app.use(expressLayouts);
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+//ejs
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+
+
+
+
+//routes
+app.use('/', require('./routes/csvRouter'));
+
+//server listening
+app.listen(PORT, (err) => {
+    if(err) console.log("error listening on", PORT);
+
+    console.log('listening on port', PORT);
+})

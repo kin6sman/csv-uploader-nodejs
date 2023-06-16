@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 
-mongoose.connect('mongodb://0.0.0.0/csvUploads');
+mongoose.connect("mongodb+srv://rahul:rahul001@cluster0.uzoqy7q.mongodb.net/habit_tracker");
 
 const db = mongoose.connection;
 
